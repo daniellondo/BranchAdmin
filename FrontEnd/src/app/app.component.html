@@ -1,0 +1,102 @@
+<mat-toolbar color="primary">
+  <span>Branch CRUD</span>
+  <span class="spacer"></span>
+  Reload data:
+  <button mat-icon-button (click)="refresh()">
+    <mat-icon>refresh</mat-icon>
+  </button>
+</mat-toolbar>
+
+<div class="container mat-elevation-z8">
+  <mat-table #table [dataSource]="dataSource" matSort class="mat-cell">
+    <ng-container matColumnDef="branchId">
+      <mat-header-cell *matHeaderCellDef>Branch Id</mat-header-cell>
+      <mat-cell *matCellDef="let row">{{ row.branchId }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="Code">
+      <mat-header-cell *matHeaderCellDef>Code</mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{ row.code }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="Description">
+      <mat-header-cell *matHeaderCellDef>Description</mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{ row.description }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="Address">
+      <mat-header-cell *matHeaderCellDef>Address</mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{ row.address }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="Identification">
+      <mat-header-cell *matHeaderCellDef>Identification</mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{ row.identification }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="CreationDate">
+      <mat-header-cell *matHeaderCellDef>Create Date</mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{ row.createDate | date:'dd/MM/yyyy' }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="Currency">
+      <mat-header-cell *matHeaderCellDef>Currency</mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{ row.currencyId }}</mat-cell>
+    </ng-container>
+
+    <!-- actions -->
+    <ng-container matColumnDef="Actions">
+      <mat-header-cell *matHeaderCellDef>
+        <button mat-icon-button color="primary" (click)="addNew()">
+          <mat-icon aria-label="Example icon-button with a heart icon"
+            >add</mat-icon
+          >
+        </button>
+      </mat-header-cell>
+
+      <mat-cell *matCellDef="let row; let i = index">
+        <button
+          mat-icon-button
+          color="accent"
+          (click)="
+            startEdit(
+              row.branchId,
+              row.code,
+              row.description,
+              row.address,
+              row.identification,
+              row.createDate,
+              row.currencyId
+            )
+          "
+        >
+          <mat-icon aria-label="Edit">edit</mat-icon>
+        </button>
+
+        <button
+          mat-icon-button
+          color="accent"
+          (click)="
+            deleteItem(
+              row.branchId,
+              row.code,
+              row.description,
+              row.address,
+              row.identification,
+              row.createDate,
+              row.currencyId
+            )
+          "
+        >
+          <mat-icon aria-label="Delete">delete</mat-icon>
+        </button>
+      </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+  </mat-table>
+
+  <mat-paginator #paginator [length]="dataSource.filteredData.length">
+  </mat-paginator>
+</div>
